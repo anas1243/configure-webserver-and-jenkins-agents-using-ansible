@@ -1,2 +1,6 @@
 ---
 # handlers file for roles/iti-webserver-role
+- name: Restart the webserver
+  ansible.builtin.service:
+    name: "{{ webserver_service }}"
+    state: restarted

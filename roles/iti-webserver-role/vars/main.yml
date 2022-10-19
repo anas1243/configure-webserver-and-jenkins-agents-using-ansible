@@ -1,2 +1,5 @@
 ---
 # vars file for roles/iti-webserver-role
+webserver_name: nginx
+webserver_service: nginx
+webserver_html_path: /usr/share/nginx/html

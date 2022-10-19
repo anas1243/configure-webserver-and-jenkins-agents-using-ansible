@@ -1,2 +1,27 @@
 ---
 # tasks file for roles/iti-webserver-role
+- name: Install the suitable webserver
+  ansible.builtin.yum:
+    name: "{{ webserver_name }}"
+    state: present
+    update_cache: true
+
+- name: Enable and Start The webserver webserver_service
+  ansible.builtin.service:
+    name: "{{ webserver_service }}"
+    state: started
+    enabled: true
+
+- name: Copy iti webserver index file to {{ webserver_html_path }}
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ webserver_html_path }}/index.html"
+    mode: 0644
+  notify: Restart the webserver
+
+- name: Copy Style directory to {{ webserver_html_path }}
+  ansible.builtin.copy:
+    src: css
+    dest: "{{ webserver_html_path }}"
+    mode: 0644
+  notify: Restart the webserver
