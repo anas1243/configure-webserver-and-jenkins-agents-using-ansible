@@ -1,0 +1,10 @@
+---
+- name: Instal ITI web server
+  hosts: webServers
+  roles:
+    - iti-webserver-role
+
+- name: Instal Jenkins
+  hosts: jenkins_agents
+  roles:
+    - jenkins-role

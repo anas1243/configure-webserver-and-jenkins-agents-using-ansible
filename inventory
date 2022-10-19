@@ -1,0 +1,6 @@
+[webServers]
+webserver.example.com
+
+
+[jenkins_agents]
+jenkins.example.com
