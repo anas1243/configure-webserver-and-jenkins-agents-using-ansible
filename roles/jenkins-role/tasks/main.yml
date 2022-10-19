@@ -1,2 +1,29 @@
 ---
 # tasks file for roles/jenkins-role
+- name: Install required packages to be able to install jenkins
+  ansible.builtin.get_url:
+    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+    mode: 0644
+- name: Install jenkins key
+  ansible.builtin.rpm_key:
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    state: present
+- name: Install java and font config
+  ansible.builtin.yum:
+    update_cache: true
+    name:
+      - fontconfig
+      - java-11-openjdk
+    state: present
+
+- name: Install jenkins
+  ansible.builtin.yum:
+    name: jenkins
+    state: present
+
+- name: Enable and start jenkins
+  ansible.builtin.service:
+    name: jenkins
+    enabled: true
+    state: started
